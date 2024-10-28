@@ -1,5 +1,7 @@
 #include<stdio.h>
 int size =0;
+int choix, n ,indice ; 
+
 
 //declaaration de la structure Adresse
 struct Adresse{
@@ -14,14 +16,13 @@ struct Personne{
 	int age;
 	struct Adresse adresse;
 };
-
+//declaration de la methode ajouter
 void ajouter (struct Personne tab[],int n ){
+	printf("entrer le nombre de personne a ajouter : ");
+	scanf("%d",&n);
 
 n=size+n;
 	
-//	if (n>100){
-//		printf("vous avez depassez la taille maximale du tableau.\n");
-//	}
      
     	for(int i=size;i<n;i++){
 		printf("entrer le nom du personne %d : ",i+1);
@@ -47,16 +48,15 @@ n=size+n;
 void afficher(struct Personne tab[],int n ){
 	//affichage des information de chaque personne
 	  
-	  if (n==0){
+	  if (size==0){
 	  		printf("il y\'a pas d\'information a afficher il faut ajouter des informations au premier\n.");
 	  }else{
-	  	 // n=size+n;
 	    	
-	  for(int i=0;i<n;i++){ 
+	  for(int i=0;i<size;i++){ 
 	    printf("\t ********** information sur les personnes: %d**********\t\n",i+1);
 		printf(" Nom : %s\n Age : %d\n Rue : %s\n Ville : %s\n Code postal : %d\n ",tab[i].nom,tab[i].age,
 		tab[i].adresse.rue,tab[i].adresse.ville,tab[i].adresse.codePostal);
-	   size=i+1;
+	   //size=i+1;
 	}
 	 }
 }
@@ -64,12 +64,12 @@ void afficher(struct Personne tab[],int n ){
 //declaration de la fonction modifier
 void modifier(struct Personne tab[] ,int n ,int indice){
 	
-	if (n==0){
+	if (size==0){
 	  		printf("il y\'a pas d\'information a modifier il faut ajouter des informations au premier.\n");
 	  }else{
 	  	    printf("\nentrer l\'indice du personne que voullez vous modifier: " );
 	        scanf("%d", &indice);
-	         if(indice>n){
+	         if(indice>size){
 	        	printf("vous avez depassez le nombre de personne");
 	         }else{
 	
@@ -91,39 +91,40 @@ void modifier(struct Personne tab[] ,int n ,int indice){
       }
 }
 
-void suprimer(struct Personne tab[] ,int n ,int indice){
+//declaration de la methode supprimer
+void supprimer(struct Personne tab[] ,int n ,int indice){
 	
-		if (n==0){
+		if (size==0){
 	  		printf("il y\'a pas d\'information a suprimer . il faut ajouter des informations au premier.\n");
 	  }else{
 	  	printf("\n entrer l\'indice du personne que voullez vous suprimer: " );
 	    scanf("%d", &indice);
-	       if(indice>n){
+	       if(indice>size){
 		       printf("vous avez depassez le nombre de personne");
 	       }else{
 		       for (int i = indice-1; i<n; i++){
 		    	tab[i]=tab[i+1];
 		
 	    	}
-	    	n--;
+	    	size--;
 		printf("La personne %d a ete supprimee\n",indice);
 	
 	}}
 }
 
 int main(){
-
-    int choix, n ,indice ; 
-    printf("entrer le nombre de personne a ajouter : ");
-	scanf("%d",&n);
+ 
+   // printf("entrer le nombre de personne a ajouter : ");
+	//scanf("%d",&n);
 	
 	struct Personne tab[n]; // Un tableau pour stocker jusqu'à n personnes
-    while (1){
+   do{
 	printf("\t ******** menu ******** \t  \n");
     printf("1 : ajouter\n");
 	printf("2 : afficher\n");
 	printf("3 : modifier\n");
-	printf("4 : suprimer\n");
+	printf("4 : supprimer\n");
+	printf("5 : quitter\n");
 	printf("choisir un nombre de 1 a 4 : \n");
 	scanf("%d",&choix);
 	switch(choix){
@@ -137,12 +138,15 @@ int main(){
 			modifier(tab,n, indice);
 			break;
 		case 4:
-			suprimer(tab,n,indice);
+			supprimer(tab,n,indice);
+			break;
+		case 5:
 			break;
 		default : printf("veuillez choisir 1 , 2 , 3 ou 4");
 
 	
 }}
+ while (choix != 5);
 return 0;
 }
 
